@@ -1,0 +1,9 @@
+.sidenav::-webkit-scrollbar{
+    width: 6px;
+    border-radius: 5px;
+}
+
+.sidenav::-webkit-scrollbar-thumb{
+    background: #aaa;
+    border-radius: 5px;
+}

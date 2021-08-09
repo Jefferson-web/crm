@@ -1,0 +1,10 @@
+.fas{
+    font-size: 12px !important;
+    color: black;
+    opacity: 1;
+}
+
+.active .fas{
+    color: #fff !important;
+    opacity: 1;
+}
