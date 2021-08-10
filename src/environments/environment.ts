@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://api-clientes-tecnimotors.herokuapp.com'
+  baseUrl: 'http://localhost:7000'
 };
 
 /*

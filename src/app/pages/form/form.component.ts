@@ -163,18 +163,20 @@ export class FormComponent implements OnInit {
   }
 
   editar() {
+    this.loading = true;
     this.clienteService.actualizarDatos(this.cliente_a_actualizar.id, this.form.value)
       .subscribe(cliente => {
+        this.loading = false;
         Swal.fire({
           icon: 'success',
-          title: 'Registrado!',
+          title: 'Actualizado!',
           text: `El cliente ${cliente.nombres} ${cliente.ap_materno} fue actualizado.`
         });
-        this.router.navigateByUrl('/clientes/view/' + this.cliente_a_actualizar.id);
+        this.router.navigateByUrl('/cliente/view/' + this.cliente_a_actualizar.id);
       }, err => {
         Swal.fire(
           'Oops...',
-          'Ocurrio un error en la eliminación',
+          'Ocurrio un error en la edición',
           'error'
         );
         console.log(err);
