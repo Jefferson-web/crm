@@ -30,4 +30,8 @@ export class ClienteService extends RestService {
     return this.http.get<Mayorista>(this.baseUrl + `/mayoristas/${id}`)
   }
 
+  actualizarDatos(id:number, datos_actualizados: Mayorista){
+    return this.http.put<Mayorista>(this.baseUrl + `/mayoristas/${id}`, datos_actualizados);
+  }
+
 }

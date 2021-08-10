@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import Departamento from 'src/app/interfaces/Departamento';
 import Distrito from 'src/app/interfaces/Distrito';
+import Mayorista from 'src/app/interfaces/Mayorista';
 import Provincia from 'src/app/interfaces/Provincia';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DireccionService } from 'src/app/services/direccion.service';
@@ -23,6 +24,7 @@ export class FormComponent implements OnInit {
 
   loading: boolean = false;
   edit: boolean = false;
+  cliente_a_actualizar: Mayorista;
 
   constructor(private fb: FormBuilder,
     private direccionService: DireccionService,
@@ -40,6 +42,7 @@ export class FormComponent implements OnInit {
       this.listarDepartamentos();
       if (params.id) {
         this.clienteService.buscarPorId(params.id).subscribe((cliente: any) => {
+          this.cliente_a_actualizar = Object.assign({}, cliente);
           delete cliente.id;
           this.form.setValue(cliente);
           this.edit = true;
@@ -128,6 +131,10 @@ export class FormComponent implements OnInit {
 
   onSubmit(e: Event) {
     e.preventDefault();
+    if (!this.form.valid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     if (this.edit) {
       this.editar();
     } else {
@@ -136,10 +143,6 @@ export class FormComponent implements OnInit {
   }
 
   registrar() {
-    if (!this.form.valid) {
-      this.form.markAllAsTouched();
-      return;
-    }
     this.loading = true;
     this.clienteService.registrar(this.form.value).subscribe(cliente => {
       this.loading = false;
@@ -160,7 +163,22 @@ export class FormComponent implements OnInit {
   }
 
   editar() {
-    console.log(this.form.value);
+    this.clienteService.actualizarDatos(this.cliente_a_actualizar.id, this.form.value)
+      .subscribe(cliente => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado!',
+          text: `El cliente ${cliente.nombres} ${cliente.ap_materno} fue actualizado.`
+        });
+        this.router.navigateByUrl('/clientes/view/' + this.cliente_a_actualizar.id);
+      }, err => {
+        Swal.fire(
+          'Oops...',
+          'Ocurrio un error en la eliminación',
+          'error'
+        );
+        console.log(err);
+      });
   }
 
   private go() {
