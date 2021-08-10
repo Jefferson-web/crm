@@ -3,6 +3,7 @@ import { SocketService } from './socket.service';
 import { HttpClient } from '@angular/common/http';
 import { RestService } from './rest.service';
 import Mayorista from '../interfaces/Mayorista';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,14 @@ export class ClienteService extends RestService {
     return this.http.get<Mayorista>(this.baseUrl + `/mayoristas/${id}`)
   }
 
-  actualizarDatos(id:number, datos_actualizados: Mayorista){
+  actualizarDatos(id: number, datos_actualizados: Mayorista) {
     return this.http.put<Mayorista>(this.baseUrl + `/mayoristas/${id}`, datos_actualizados);
+  }
+
+  getEstadisticas() {
+    let response1 = this.http.get(this.baseUrl + '/estadisticas/cantidad-clientes');
+    let response2 = this.http.get(this.baseUrl + '/estadisticas/clientes-hoy');
+    return forkJoin([response1, response2]);
   }
 
 }

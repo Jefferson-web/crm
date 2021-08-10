@@ -88,6 +88,10 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="item" style="width: 100%; padding: 20px; margin: auto;" *ngIf="clientes.length == 0">
+                        <ngx-skeleton-loader count="20" appearance="line" [theme]="{'min-width': '900px', 'min-height': '40px'}">
+                        </ngx-skeleton-loader>
+                    </div>
                 </div>
             </div>
         </div>
