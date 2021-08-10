@@ -2,7 +2,12 @@
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Tabla de Clientes</h6>
+                <div class="d-flex justify-content-between">
+                    <h6>Tabla de Clientes</h6>
+                    <button type="button" class="btn btn-primary" [routerLink]="['/cliente/create']">
+                        <span><i class="fas fa-plus"></i></span>
+                        <span style="margin-left: 10px;">Registrar Cliente</span></button>
+                </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
@@ -12,7 +17,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cliente
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Dirección</th>
+                                    Razón social y/o RUC</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Celular</th>
                                 <th
@@ -29,10 +34,25 @@
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                            <img *ngIf="cliente.genero == 'Masculino' || !cliente.genero; else elseBlockImg" src="assets/img/avatar-masculino.png" class="avatar avatar-sm me-3" alt="user1">
-                                            <ng-template #elseBlockImg>
-                                                <img src="assets/img/avatar-femenino.png" class="avatar avatar-sm me-3" alt="user1">
-                                            </ng-template>
+
+                                            <div class="dropdown">
+
+                                                <img *ngIf="cliente.genero == 'Masculino' || !cliente.genero; else elseBlockImg"
+                                                    src="assets/img/avatar-masculino.png"
+                                                    class="avatar avatar-sm me-3 dropdown-toggle"
+                                                    data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+
+                                                <ng-template #elseBlockImg>
+                                                    <img src="assets/img/avatar-femenino.png"
+                                                        class="avatar avatar-sm me-3 dropdown-toggle"
+                                                        data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+                                                </ng-template>
+
+                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                                                    <li><a class="dropdown-item" routerLink="/cliente/view/{{ cliente.id }}" >Ver Información</a></li>
+                                                    <li><a class="dropdown-item" href="#">Editar Datos</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ cliente.nombres | titlecase }} {{
@@ -60,7 +80,6 @@
                                         date: 'dd/MM/yyyy h:mm a'}}</span>
                                 </td>
                                 <td class="align-middle">
-
                                 </td>
                             </tr>
                         </tbody>

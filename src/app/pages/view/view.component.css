@@ -1,0 +1,24 @@
+.icons-options{
+    font-size: 16px;
+}
+
+.btn-actions{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    transition: all .5s ease-in-out;
+}
+
+.btn-actions:hover{
+    background: #bdbdbd31;
+}
+
+.a-link{
+    color: #1976D2;
+}
+
+.a-link:hover{
+    text-decoration: underline;
+}

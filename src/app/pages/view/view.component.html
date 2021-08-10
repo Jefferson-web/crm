@@ -1,0 +1,148 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" >
+        <li class="breadcrumb-item"><a [routerLink]="['/clientes']">Clientes</a></li>
+        <li class="breadcrumb-item active" aria-current="page" *ngIf="cliente">{{ cliente.nombres }} {{ cliente.ap_paterno }} {{ cliente.ap_materno }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-12" *ngIf="cliente">
+        <div class="card p-2">
+            <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                <div class="row">
+                    <div class="col-6">
+                        <div>
+                            <span style="font-weight: 600; color: #344767; margin-right: 10px;">{{ cliente.nombres }} {{ cliente.ap_paterno }} {{ cliente.ap_materno }}</span>
+                            <span class="badge badge-sm bg-gradient-success"
+                                *ngIf="isToday(cliente.fecha_registro); else elseBlock">Nuevo</span><br>
+                            <ng-template #elseBlock>
+                                <span class="badge badge-sm bg-gradient-secondary">Registrado</span>
+                            </ng-template>
+                        </div>
+                        <div class="text-secondary" style="font-size: 13px;">Mayorista</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex justify-content-end">
+                            <ul class="d-flex" style="list-style: none;">
+                                <li>
+                                    <button href="#" class="btn-actions icons-options m-1">
+                                        <i class="fas fa-pencil-alt" style="color: #7C4DFF;"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button href="#" class="btn-actions icons-options m-1" (click)="eliminar(cliente)">
+                                        <i class="fas fa-trash" style="color: #FF5252;"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-2">
+                <h6 class="text-secondary">Datos del Cliente</h6>
+                <hr>
+                <div class="row" style="font-size: 14px;">
+                    <div class="col-6">
+                        <div>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong>Celular</strong>
+                                </div>
+                                <div class="col-6">
+                                    {{ cliente.celular }}
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong>Rázon Social</strong>
+                                </div>
+                                <div class="col-6">
+                                    <div *ngIf="cliente.razon_social; else elseRazonSocial">{{ cliente.razon_social | titlecase }}
+                                    </div>
+                                    <ng-template #elseRazonSocial>Sin especificar</ng-template>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong>RUC</strong>
+                                </div>
+                                <div class="col-6">
+                                    <div *ngIf="cliente.ruc; else elseRUC">{{ cliente.ruc }}</div>
+                                    <ng-template #elseRUC>Sin especificar</ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong>Email</strong>
+                                </div>
+                                <div class="col-6">
+                                    <div class="a-link">{{ cliente.email }}</div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong>Fecha de Nacimiento</strong>
+                                </div>
+                                <div class="col-6">
+                                    {{ cliente.fecha_nacimiento }}
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong>Teléfono Fijo</strong>
+                                </div>
+                                <div class="col-6">
+                                    <div *ngIf="cliente.telef_fijo; else elseTelef">{{ cliente.telef_fijo }}</div>
+                                    <ng-template #elseTelef>
+                                        <div>Sin especificar</div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-secondary">Dirección del Cliente</h6>
+                <hr>
+                <div class="row" style="font-size: 14px;">
+                    <div class="col-12  mb-3">
+                        <div class="row">
+                            <strong>Dirección</strong>
+                            <div>
+                                {{ cliente.direccion_cliente }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4  mb-3">
+                        <div class="row">
+                            <strong>Departamento</strong>
+                            <div>
+                                {{ cliente.departamento }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4  mb-3">
+                        <div class="row">
+                            <strong>Provincia</strong>
+                            <div>
+                                {{ cliente.provincia }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4  mb-3">
+                        <div class="row">
+                            <strong>Distrito</strong>
+                            <div>
+                                {{ cliente.distrito }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

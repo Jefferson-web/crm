@@ -1,5 +1,5 @@
 export default interface Mayorista {
-    id?: number;
+    id: number;
     nombres?: string;
     ap_paterno?: string;
     ap_materno?: string;

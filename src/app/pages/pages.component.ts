@@ -17,7 +17,8 @@ export class PagesComponent implements OnInit {
 
   routes: RouterInfo[] = [
     { path: '/home', title: 'Inicio', icon: 'fas fa-home' },
-    { path: '/clientes', title: 'Clientes', icon: 'fas fa-users' }
+    { path: '/clientes', title: 'Clientes', icon: 'fas fa-users' },
+    { path: '/cliente/create', title: 'Registrar', icon: 'fas fa-users' }
   ]
 
   constructor() { }

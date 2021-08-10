@@ -4,6 +4,8 @@ import { PagesComponent } from './pages.component';
 import { HomeComponent } from './home/home.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ClientesComponent } from './clientes/clientes.component';
+import { ViewComponent } from './view/view.component';
+import { FormComponent } from './form/form.component';
 
 
 
@@ -11,14 +13,19 @@ import { ClientesComponent } from './clientes/clientes.component';
   declarations: [
     PagesComponent,
     HomeComponent,
-    ClientesComponent
+    ClientesComponent,
+    ViewComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule
   ],
   exports: [
-    HomeComponent
+    HomeComponent,
+    ClientesComponent,
+    ViewComponent,
+    FormComponent
   ]
 })
 export class PagesModule { }

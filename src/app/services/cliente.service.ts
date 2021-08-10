@@ -26,4 +26,8 @@ export class ClienteService extends RestService {
     return this.http.get<Mayorista[]>(this.baseUrl + '/mayoristas');
   }
 
+  buscarPorId(id: number) {
+    return this.http.get<Mayorista>(this.baseUrl + `/mayoristas/${id}`)
+  }
+
 }
