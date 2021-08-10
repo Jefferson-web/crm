@@ -27,12 +27,12 @@
                         <div class="d-flex justify-content-end">
                             <ul class="d-flex" style="list-style: none;">
                                 <li>
-                                    <button href="#" class="btn-actions icons-options m-1">
+                                    <button [routerLink]="['/cliente/edit/', cliente.id]" class="btn-actions icons-options m-1">
                                         <i class="fas fa-pencil-alt" style="color: #7C4DFF;"></i>
                                     </button>
                                 </li>
                                 <li>
-                                    <button href="#" class="btn-actions icons-options m-1" (click)="eliminar(cliente)">
+                                    <button class="btn-actions icons-options m-1" (click)="eliminar(cliente)">
                                         <i class="fas fa-trash" style="color: #FF5252;"></i>
                                     </button>
                                 </li>

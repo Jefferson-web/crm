@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: 'clientes', component: ClientesComponent },
       { path: 'cliente/view/:id', component: ViewComponent },
       { path: 'cliente/create', component: FormComponent },
+      { path: 'cliente/edit/:id', component: FormComponent },
       { path: '', pathMatch: 'full', redirectTo: '/home' }
     ]
   }

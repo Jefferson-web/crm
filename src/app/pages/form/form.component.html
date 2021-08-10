@@ -2,12 +2,17 @@
     <div class="col-12 col-md-9 mx-auto">
         <div class="card animate__animated animate__fadeInDown">
             <div class="card-header">
-                <h6 style="margin-bottom: 0;">Formulario de Registro</h6>
+                <h6 style="margin-bottom: 0;">Formulario de 
+                    <span *ngIf="edit; else elseEdit">Edición</span>
+                    <ng-template #elseEdit>
+                        Registro
+                    </ng-template>
+                </h6>
                 <p class="text-secondary" style="font-size: 13px; margin-bottom: 0;">Complete los campos correctamente
                 </p>
             </div>
             <div class="card-body">
-                <form [formGroup]="form" (submit)="registrar($event)">
+                <form [formGroup]="form" (submit)="onSubmit($event)">
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
@@ -90,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="!edit">
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtDepartamento">Departamento<span class="required"> * </span></label>
@@ -113,7 +118,8 @@
                                     formControlName="provincia" [ngClass]="{'is-invalid': isInvalid('provincia')}"
                                     (change)="listarDistritos($event.target)">
                                     <option value="" selected>Seleccionar</option>
-                                    <option [value]="provincia.nombre" [attr.id]="provincia.provincia_id" *ngFor="let provincia of provincias">
+                                    <option [value]="provincia.nombre" [attr.id]="provincia.provincia_id"
+                                        *ngFor="let provincia of provincias">
                                         {{ provincia.nombre }}
                                     </option>
                                 </select>
@@ -162,10 +168,16 @@
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary" [disabled]="loading">
+                            <button type="submit" class="btn btn-primary" [disabled]="loading" *ngIf="!edit">
                                 <span *ngIf="!loading; else elseLoading">Registrar</span>
                                 <ng-template #elseLoading>
                                     <span>Guardando...</span>
+                                </ng-template>
+                            </button>
+                            <button type="submit" class="btn btn-primary" [disabled]="loading" *ngIf="edit">
+                                <span *ngIf="!loading; else elseLoadingEdit">Editar</span>
+                                <ng-template #elseLoadingEdit>
+                                    <span>Editando...</span>
                                 </ng-template>
                             </button>
                         </div>

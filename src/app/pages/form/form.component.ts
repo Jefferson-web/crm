@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Departamento from 'src/app/interfaces/Departamento';
 import Distrito from 'src/app/interfaces/Distrito';
 import Provincia from 'src/app/interfaces/Provincia';
@@ -15,25 +15,45 @@ import Swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
 
+  return: string = '/clientes'
   form: FormGroup;
   departamentos: Array<Departamento>;
   provincias: Array<Provincia>;
   distritos: Array<Distrito>;
 
   loading: boolean = false;
+  edit: boolean = false;
 
   constructor(private fb: FormBuilder,
     private direccionService: DireccionService,
     private clienteService: ClienteService,
-    private route: Router) {
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
     this.departamentos = [];
     this.provincias = [];
     this.distritos = [];
   }
 
   ngOnInit(): void {
-    this.form = this.createForm();
-    this.listarDepartamentos();
+    this.activatedRoute.params.subscribe(params => {
+      this.form = this.createForm();
+      this.listarDepartamentos();
+      if (params.id) {
+        this.clienteService.buscarPorId(params.id).subscribe((cliente: any) => {
+          delete cliente.id;
+          this.form.setValue(cliente);
+          this.edit = true;
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.details
+          });
+          this.go();
+        });
+      }
+    });
+
   }
 
   createForm() {
@@ -51,7 +71,12 @@ export class FormComponent implements OnInit {
       provincia: this.fb.control('', Validators.required),
       distrito: this.fb.control('', Validators.required),
       fecha_nacimiento: this.fb.control(''),
-      genero: this.fb.control('Masculino', Validators.required)
+      genero: this.fb.control('Masculino', Validators.required),
+      complemento_direccion: this.fb.control(null),
+      fecha_registro: this.fb.control(null),
+      ciudad: this.fb.control(null),
+      comentario_reg_cliente: this.fb.control(null),
+      proteccion_datos: this.fb.control(true)
     });
   }
 
@@ -101,8 +126,16 @@ export class FormComponent implements OnInit {
     return this.form.get(name) as FormControl;
   }
 
-  registrar(e: Event) {
+  onSubmit(e: Event) {
     e.preventDefault();
+    if (this.edit) {
+      this.editar();
+    } else {
+      this.registrar();
+    }
+  }
+
+  registrar() {
     if (!this.form.valid) {
       this.form.markAllAsTouched();
       return;
@@ -113,9 +146,9 @@ export class FormComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         title: 'Registrado!',
-        text: `El cliente ${ cliente.nombres } ${ cliente.ap_materno } fue registrado.`
+        text: `El cliente ${cliente.nombres} ${cliente.ap_materno} fue registrado.`
       });
-      this.route.navigateByUrl('/clientes');
+      this.router.navigateByUrl('/clientes');
     }, (err) => {
       Swal.fire(
         'Oops...',
@@ -124,6 +157,14 @@ export class FormComponent implements OnInit {
       );
       console.log(err);
     });
+  }
+
+  editar() {
+    console.log(this.form.value);
+  }
+
+  private go() {
+    this.router.navigateByUrl(this.return);
   }
 
 }
