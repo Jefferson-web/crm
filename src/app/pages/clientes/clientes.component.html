@@ -49,8 +49,12 @@
                                                 </ng-template>
 
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-                                                    <li><a class="dropdown-item" routerLink="/cliente/view/{{ cliente.id }}" >Ver Información</a></li>
-                                                    <li><a class="dropdown-item" href="#">Editar Datos</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            routerLink="/cliente/view/{{ cliente.id }}">Ver
+                                                            Información</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            [routerLink]="['/cliente/edit/', cliente.id]">Editar
+                                                            Datos</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -72,7 +76,7 @@
                                     <span class="badge badge-sm bg-gradient-success"
                                         *ngIf="isToday(cliente.fecha_registro); else elseBlock">Nuevo</span><br>
                                     <ng-template #elseBlock>
-                                        <span class="badge badge-sm bg-gradient-secondary">Registrado</span>
+                                        <span class="badge badge-sm bg-gradient-info">Registrado</span>
                                     </ng-template>
                                 </td>
                                 <td class="align-middle text-center">

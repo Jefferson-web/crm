@@ -18,7 +18,7 @@
                             <span class="badge badge-sm bg-gradient-success"
                                 *ngIf="isToday(cliente.fecha_registro); else elseBlock">Nuevo</span><br>
                             <ng-template #elseBlock>
-                                <span class="badge badge-sm bg-gradient-secondary">Registrado</span>
+                                <span class="badge badge-sm bg-gradient-info">Registrado</span>
                             </ng-template>
                         </div>
                         <div class="text-secondary" style="font-size: 13px;">Mayorista</div>
@@ -27,7 +27,8 @@
                         <div class="d-flex justify-content-end">
                             <ul class="d-flex" style="list-style: none;">
                                 <li>
-                                    <button [routerLink]="['/cliente/edit/', cliente.id]" class="btn-actions icons-options m-1">
+                                    <button [routerLink]="['/cliente/edit/', cliente.id]"
+                                        class="btn-actions icons-options m-1">
                                         <i class="fas fa-pencil-alt" style="color: #7C4DFF;"></i>
                                     </button>
                                 </li>
@@ -149,6 +150,37 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <button class="float-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="far fa-comment-dots">
+                    <div class="badge-message">
+                        <span *ngIf="cliente.comentario_reg_cliente; else elseComentario">1</span>
+                        <ng-template #elseComentario>
+                            <span>0</span>
+                        </ng-template>
+                    </div>
+                </i>
+                
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Comentario de Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               {{ cliente.comentario_reg_cliente }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     <div class="col-12 col-md-9 mx-auto">
         <div class="card animate__animated animate__fadeInDown">
             <div class="card-header">
-                <h6 style="margin-bottom: 0;">Formulario de 
+                <h6 style="margin-bottom: 0;">Formulario de
                     <span *ngIf="edit; else elseEdit">Edición</span>
                     <ng-template #elseEdit>
                         Registro
@@ -180,6 +180,8 @@
                                     <span>Editando...</span>
                                 </ng-template>
                             </button>
+                            <button type="button" class="btn btn-default" style="margin-left: 15px;"
+                                routerLink="/clientes">Cancelar</button>
                         </div>
                     </div>
                 </form>
