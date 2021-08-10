@@ -6,6 +6,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ViewComponent } from './view/view.component';
 import { FormComponent } from './form/form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { FormComponent } from './form/form.component';
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
     HomeComponent,

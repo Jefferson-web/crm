@@ -1,7 +1,8 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb" >
+    <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/clientes']">Clientes</a></li>
-        <li class="breadcrumb-item active" aria-current="page" *ngIf="cliente">{{ cliente.nombres }} {{ cliente.ap_paterno }} {{ cliente.ap_materno }}</li>
+        <li class="breadcrumb-item active" aria-current="page" *ngIf="cliente">{{ cliente.nombres }} {{
+            cliente.ap_paterno }} {{ cliente.ap_materno }}</li>
     </ol>
 </nav>
 
@@ -12,7 +13,8 @@
                 <div class="row">
                     <div class="col-6">
                         <div>
-                            <span style="font-weight: 600; color: #344767; margin-right: 10px;">{{ cliente.nombres }} {{ cliente.ap_paterno }} {{ cliente.ap_materno }}</span>
+                            <span style="font-weight: 600; color: #344767; margin-right: 10px;">{{ cliente.nombres }} {{
+                                cliente.ap_paterno }} {{ cliente.ap_materno }}</span>
                             <span class="badge badge-sm bg-gradient-success"
                                 *ngIf="isToday(cliente.fecha_registro); else elseBlock">Nuevo</span><br>
                             <ng-template #elseBlock>
@@ -58,7 +60,8 @@
                                     <strong>Rázon Social</strong>
                                 </div>
                                 <div class="col-6">
-                                    <div *ngIf="cliente.razon_social; else elseRazonSocial">{{ cliente.razon_social | titlecase }}
+                                    <div *ngIf="cliente.razon_social; else elseRazonSocial">{{ cliente.razon_social |
+                                        titlecase }}
                                     </div>
                                     <ng-template #elseRazonSocial>Sin especificar</ng-template>
                                 </div>
@@ -89,7 +92,11 @@
                                     <strong>Fecha de Nacimiento</strong>
                                 </div>
                                 <div class="col-6">
-                                    {{ cliente.fecha_nacimiento }}
+                                    <div *ngIf="cliente.fecha_nacimiento; else elseFechaNacimiento">{{
+                                        cliente.fecha_nacimiento }}</div>
+                                    <ng-template #elseFechaNacimiento>
+                                        <div>Sin especificar</div>
+                                    </ng-template>
                                 </div>
                             </div>
                             <div class="row mb-4">
